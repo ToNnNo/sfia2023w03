@@ -6,6 +6,7 @@ use App\Entity\Post;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,6 +17,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class PostController extends AbstractController
 {
+    //@Cache(expires="+2 hours")
+
     /**
      * @Route("", name="index")
      */
@@ -28,11 +31,19 @@ class PostController extends AbstractController
             $posts = $postRepository->findAllWithAuthor();
         }
 
-        dump($posts);
+        // dump($posts);
 
-        return $this->render('post/index.html.twig', [
+        $response = $this->render('post/index.html.twig', [
             "posts" => $posts
         ]);
+
+        $expire = new \DateTime();
+        $expire->modify("+2 hours");
+        $response
+            ->setPublic()
+            ->setExpires($expire);
+
+        return $response;
     }
 
     /**
