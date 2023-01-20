@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Author;
 use App\Entity\Post;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -33,6 +35,16 @@ class PostType extends AbstractType
                 'help' => "Format HTML autorisé",
                 'help_attr' => ["class" => "small"],
                 'label' => 'Contenu: '
+            ])
+            ->add('author', EntityType::class, [
+                'label' => 'Auteur: ',
+                'attr' => ["class" => "form-select"],
+                'row_attr' => ["class" => "mb-3"],
+                'placeholder' => "Choisissez un auteur",
+                'class' => Author::class,
+                'choice_label' => function(Author $author) {
+                    return $author->getFullname();
+                }
             ])
         ;
     }

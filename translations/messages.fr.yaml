@@ -1,0 +1,8 @@
+symfony:
+    great: Symfony est génial
+
+hello:
+    name: Salut %name%
+
+mailbox:
+    message: "{0}Aucun nouveau message|{1} Un nouveau message|]1,Inf[ %count% nouveaux messages"

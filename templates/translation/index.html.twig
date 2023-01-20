@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Traduction {% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    <p>
+        <a href="{{ path('translation_index', {"_locale": "fr"}) }}">Français</a> -
+        <a href="{{ path('translation_index', {"_locale": "en"}) }}">English</a>
+    </p>
+
+    <h3>{{ 'welcome' | trans }}</h3>
+
+    <p class="lead">{{ 'symfony.great' | trans }}</p>
+
+    <h4>Variable</h4>
+    <p>{{ 'hello.name' | trans({'%name%': name}) }}</p>
+
+    <h4>Pluralisation</h4>
+    <p>{{ 'mailbox.message' | trans({'%count%': 0 }) }}</p>
+    <p>{{ 'mailbox.message' | trans({'%count%': 1 }) }}</p>
+    <p>{{ 'mailbox.message' | trans({'%count%': 10 }) }}</p>
+
+{% endblock %}

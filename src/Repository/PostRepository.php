@@ -4,7 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\Persistence\ManagerRegistry;
+use function Doctrine\ORM\QueryBuilder;
 
 /**
  * @extends ServiceEntityRepository<Post>
@@ -37,6 +39,33 @@ class PostRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findAllWithAuthor(): array
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p', 'a')
+            // ->addSelect('a.firstname', 'a.lastname')
+            ->leftJoin('p.author', 'a')
+            ->orderBy('p.id')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findAllFromAuthor($idAuthor): array
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p', 'a')
+            ->leftJoin('p.author', 'a')
+            ->where('p.author = :id')
+            ->setParameter('id', $idAuthor)
+            /*->setMaxResults(2)
+            ->setFirstResult(5)*/
+            ->orderBy('p.id')
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
 //    /**

@@ -19,9 +19,16 @@ class PostController extends AbstractController
     /**
      * @Route("", name="index")
      */
-    public function index(PostRepository $postRepository): Response
+    public function index(Request $request, PostRepository $postRepository): Response
     {
-        $posts = $postRepository->findAll();
+        if( $request->query->has('author') ) {
+            $idAuthor = $request->query->getInt('author');
+            $posts = $postRepository->findAllFromAuthor($idAuthor);
+        } else {
+            $posts = $postRepository->findAllWithAuthor();
+        }
+
+        dump($posts);
 
         return $this->render('post/index.html.twig', [
             "posts" => $posts
