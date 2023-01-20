@@ -68,6 +68,17 @@ class PostRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findWithAuthor($id): ?Post
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p', 'a')
+            ->leftJoin('p.author', 'a')
+            ->where('p.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 //    /**
 //     * @return Post[] Returns an array of Post objects
 //     */

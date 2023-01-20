@@ -36,6 +36,18 @@ class PostController extends AbstractController
     }
 
     /**
+     * @Route("/detail/{id}", name="detail")
+     */
+    public function detail(int $id, PostRepository $postRepository): Response
+    {
+        $post = $postRepository->findWithAuthor($id);
+
+        return $this->render('post/detail.html.twig', [
+            "post" => $post
+        ]);
+    }
+
+    /**
      * @Route("/add", name="add")
      */
     public function add(Request $request, EntityManagerInterface $entityManager): Response

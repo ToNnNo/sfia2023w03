@@ -34,6 +34,7 @@
                         {{ post.author.fullname }}</a>
                 </td>
                 <td>
+                    <a href="{{ path('post_detail', {"id": post.id}) }}"> Détail</a> |
                     <a href="{{ path('post_edit', {"id": post.id}) }}"> Modifier </a>
                 </td>
             </tr>
