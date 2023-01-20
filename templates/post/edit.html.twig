@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer des articles{% endblock %}
+
+{% form_theme form _self %}
+
+{%- block form_errors -%}
+    {%- if errors|length > 0 -%}
+        <div class="text-danger mb-2">
+            {%- for error in errors -%}
+                <span>{{ error.message }}</span><br />
+            {%- endfor -%}
+        </div>
+    {%- endif -%}
+{%- endblock form_errors -%}
+
+{% block body %}
+    {{ parent() }}
+
+    <div class="mb-3">
+        <a href="{{ path('post_index') }}" class="btn btn-outline-secondary">Retour</a>
+    </div>
+
+    {# {{ form(form) }} #}
+
+    {# {{ form_start(form) }}
+    {{ form_rest(form) }}
+    <div class="mb-3">
+        <button class="btn btn-outline-primary">Enregistrer</button>
+    </div>
+    {{ form_end(form) }} #}
+
+    {{ form_start(form) }}
+    {{ form_row(form.title) }}
+
+    <div class="mb-3">
+        {{ form_label(form.body) }}
+        {{ form_errors(form.body) }}
+        <br />
+        {{ form_widget(form.body) }}
+        {{ form_help(form.body) }}
+    </div>
+
+    <div class="mb-3">
+        <button class="btn btn-outline-primary">Enregistrer</button>
+    </div>
+    {{ form_end(form) }}
+
+{% endblock %}

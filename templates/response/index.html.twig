@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Response {% endblock %}
+
+{% block body %}
+    <h2>Objet Response</h2>
+
+    <ul>
+        <li><a href="/response/redirection">Faire une Redirection</a></li>
+        <li><a href="/response/download">Download</a></li>
+        <li><a href="/response/json">JSON</a></li>
+    </ul>
+
+    <h3>Les sessions</h3>
+
+    <p>Bonjour {{ name }}</p>
+
+    <a href="/response?save=1">S'enregistrer dans la session</a> -
+    <a href="/response?clear=1">Effacer la session</a>
+{% endblock %}

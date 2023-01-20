@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Abonnement {% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    <p>Votre abonnement a bien été pris en compte. Il est valable jusqu'au {{ finish_at | date('d/m/Y \à H:i:s') }}</p>
+
+    <p>
+        <a href="{{ path('video_index') }}">Voir la vidéo</a>
+    </p>
+
+{% endblock %}

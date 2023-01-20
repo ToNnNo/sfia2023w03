@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les services{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    {{ form(form) }}
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+{% endblock %}

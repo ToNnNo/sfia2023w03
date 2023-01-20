@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Profil{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <p>
+            <a href="{{ path('profile_private') }}">Accéder aux informations privées</a>
+        </p>
+    {% endif %}
+
+    <p>Username: {{ app.user.userIdentifier | capitalize }}</p>
+    <p>Role: {{ app.user.roles | join(', ') }}</p>
+
+    {% dump(app.user) %}
+
+{% endblock %}

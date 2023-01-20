@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Enregistrer un Article{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    <h3>Article à enregistrer</h3>
+
+    <div>
+        <p>
+            <b>Titre: </b> {{ post.title }}
+        </p>
+
+        <p>
+            <b>Contenu: </b><br />
+            {{ post.body|raw }}
+        </p>
+    </div>
+
+    <div class="mt-3">
+        <a href="{{ path('post_save', {"save": "post"}) }}" class="btn btn-outline-primary">
+            Enregistrer</a>
+    </div>
+
+{% endblock %}

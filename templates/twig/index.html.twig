@@ -1,0 +1,134 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Présentation de Twig{% endblock %}
+
+{% block footer %}
+    <p class="text-center small mb-0">Twig est un moteur de template écrit en php par SensioLab pour Symfony</p>
+    {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        ul > li:nth-child(odd) {
+            color: rebeccapurple;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    {# Commentaire twig #}
+
+    <p><a href="https://twig.symfony.com" target="_blank">Documentation de Twig</a></p>
+
+    <h3>Affiche une valeur</h3>
+
+    <p>Pour afficher une valeur, on utilise {{ '{{ ... }}' }}</p>
+
+    <p>ex: {{ name }}</p>
+
+    <h3>Les Urls</h3>
+
+    <p>relative => path('app_home'): {{ path('app_home') }}</p>
+    <p>absolue => url('app_home'): {{ url('app_home') }}</p>
+
+    <h3>Structure</h3>
+    <h4>If</h4>
+    <p>
+        <a href="https://twig.symfony.com/doc/3.x/templates.html#comparisons" target="_blank">
+            Les comparateurs</a>
+    </p>
+
+    {% if name is same as("John Smith") %}
+        <p>Bonjour John</p>
+    {% else %}
+        <p>Bonjour Inconnu</p>
+    {% endif %}
+
+    <h4>Tableau et Objet</h4>
+
+    <h5>Tableau</h5>
+
+    <address>
+        Dawan Lille <br />
+        {{ address.street }}<br />
+        {{ address.zip }} {{ address.city }}
+    </address>
+
+    <h5>Objet (Person)</h5>
+
+    <dl>
+        <dt>Prénom:</dt>
+        <dd>{{ person.firstname }}</dd>
+        <dt>Nom:</dt>
+        <dd>{{ person.lastname }}</dd>
+        <dt>Email:</dt>
+        <dd>{{ person.email }}</dd>
+    </dl>
+
+    <h4>For</h4>
+
+    {# page - 1 * 3 #}
+    <h5>Fruits</h5>
+    <ul>
+{#  {% for fruit in fruits|slice(3, 3) %} #}
+    {% for fruit in fruits %}
+        {# 'text-warning': loop.index is odd, #}
+        <li class="{{ html_classes({
+            'text-primary': loop.first,
+            'text-danger': loop.last
+        }) }}">
+            {{ loop.index ~ '/' ~ loop.length }} {{ fruit }} (index du tableau: {{ loop.index0 }})</li>
+    {% endfor %}
+    </ul>
+
+    <h5>Légumes</h5>
+    <ul>
+        {% for vegetable in vegetables %}
+            <li>{{ vegetable }}</li>
+        {% else %}
+            <li>Le panier est vide ...</li>
+        {% endfor %}
+    </ul>
+
+    <h5>Key/Value</h5>
+    <dl>
+    {% for key, value in address %}
+        <dt>{{ key }}</dt>
+        <dd>{{ value }}</dd>
+    {% endfor %}
+    </dl>
+
+    <h3>Filtres</h3>
+
+    <p>
+        {{ 'hello world' | upper }} <br />
+        {{ 'hello world' | capitalize }}<br />
+        {{ 'hello world' | title }}
+    </p>
+
+    <p>Il y a {{ fruits|length }} fruits dans mon panier</p>
+
+    <p>Mes fruits préférés sont les {{ fruits|filter( f => f|lower starts with "p")|join(', ', ' et ') }}</p>
+
+    <p>{{ now | date('d/m/Y H:i:s') }}</p>
+
+    <h3>Include</h3>
+
+    {% set vars = { number: 10, name } %}
+    {% include 'twig/include.html.twig' with vars only %}
+
+    {% include 'twig/include.html.twig' with { number: 10 } only %}
+
+    <h3>Dump</h3>
+
+    {{ dump("dump avec {{") }}
+
+    {% dump("dump avec {%") %}
+
+    <h3>Sous Requête</h3>
+
+    {{ render(controller('App\\Controller\\TwigController::subRequest')) }}
+
+{% endblock %}

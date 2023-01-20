@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des articles{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    <div class="mb-3">
+        <a href="{{ path('post_add') }}" class="btn btn-outline-primary">Ajouter</a>
+    </div>
+
+    <p>
+        <a href="https://symfony.com/doc/current/reference/forms/types.html" target="_blank">Référence FormType</a>
+    </p>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Titre</th>
+            <th>Contenu</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for post in posts %}
+            <tr>
+                <td>{{ post.id }}</td>
+                <td>{{ post.title }}</td>
+                <td>{{ post.body|striptags|slice(0, 30) ~ "..." }}</td>
+                <td>
+                    <a href="{{ path('post_edit', {"id": post.id}) }}"> Modifier </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

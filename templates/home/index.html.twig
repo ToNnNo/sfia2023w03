@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+
+    <ul>
+        <li>Routage</li>
+        <li>Object Request</li>
+        <li>Object Response</li>
+    </ul>
+
+    <h2>Le Routage</h2>
+    <p>
+        <a href="{{ url_sandbox }}" target="_blank">Cliquez ici pour accéder à la page sandbox</a>
+    </p>
+
+    <h3>Route /hello avec paramètre alphabétique</h3>
+    <p>
+        Saluer <a href="/hello">Stéphane</a>, <a href="/hello/john">John</a> ou <a href="/hello/jane">Jane</a>
+    </p>
+
+    <h3>Route /hello avec paramètre numérique</h3>
+    <p>
+        Saluer <a href="/hello">Stéphane</a>, <a href="/hello/1">John</a> ou <a href="/hello/2">Jane</a>
+    </p>
+
+    <p>
+        <a href="{{ url_special }}" target="_blank">Les paramètres spéciaux</a>
+    </p>
+
+    <p>
+        <a href="{{ url_extra_param }}">Accéder à la page paramètre</a>
+    </p>
+
+{% endblock %}
